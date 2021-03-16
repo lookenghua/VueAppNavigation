@@ -6,3 +6,5 @@ node_modules/
 .gitignore
 babel.config.js
 vue.config.js
+.idea/
+.git/
