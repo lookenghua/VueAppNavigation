@@ -1,0 +1,8 @@
+# Created by .ignore support plugin (hsz.mobi)
+src/
+node_modules/
+.browserslistrc
+.eslintrc.js
+.gitignore
+babel.config.js
+vue.config.js

@@ -31,7 +31,7 @@ function callHook(vm, hook) {
     }
   }
 }
-const stack = [];
+let stack = [];
 const tabBarStack = [];
 
 // 获取index
@@ -77,12 +77,19 @@ let VueAppNavigation = keyName => {
       }
       if (history.action === config.tabBarName) {
         let index = getTabBarIndexByKey(key);
+        if (stack) {
+          for (let i = 0; i < stack.length; i++) {
+            stack[i].vnode.componentInstance.$destroy();
+            stack[i] = null;
+          }
+          stack = [];
+        }
         if (index === -1) {
           tabBarStack.push({ key, vnode });
-          vnode.data.keepAlive = true;
         } else {
           vnode.componentInstance = tabBarStack[index].vnode.componentInstance;
         }
+        vnode.data.keepAlive = true;
         return vnode;
       } else {
         let index = getIndexByKey(key);
