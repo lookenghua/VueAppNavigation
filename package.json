@@ -1,6 +1,6 @@
 {
   "name": "vue-app-navigation",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": false,
   "scripts": {
     "build": "vue-cli-service build --target lib --name vue-app-navigation ./src/index.js",
