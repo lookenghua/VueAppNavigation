@@ -31,6 +31,7 @@ function callHook(vm, hook) {
     }
   }
 }
+
 let stack = [];
 const tabBarStack = [];
 
@@ -43,6 +44,7 @@ function getIndexByKey(key) {
   }
   return -1;
 }
+
 // 获取tabBar的index
 function getTabBarIndexByKey(key) {
   for (let index = 0; index < tabBarStack.length; index++) {
@@ -74,6 +76,24 @@ let VueAppNavigation = keyName => {
       const vnode = getFirstComponentChild(slot);
       if (!vnode) {
         return vnode;
+      }
+      /*开发环境hot reload处理*/
+      if (process.env.NODE_ENV === "development") {
+        if (history.action === config.pushName) {
+          let index = getIndexByKey(key);
+          if (index !== -1) {
+            let componentOptions = vnode && vnode.componentOptions;
+            if (componentOptions) {
+              if (componentOptions.Ctor) {
+                const lastKey = stack[stack.length - 1].key;
+                if (lastKey === key) {
+                  stack[stack.length - 1].vnode = vnode;
+                  return vnode;
+                }
+              }
+            }
+          }
+        }
       }
       if (history.action === config.tabBarName) {
         let index = getTabBarIndexByKey(key);

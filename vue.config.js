@@ -2,7 +2,7 @@ module.exports = {
   css: {
     extract: false
   },
-  productionSourceMap: true,
+  productionSourceMap: false,
   configureWebpack: {
     output: {
       library: "VueAppNavigation",
